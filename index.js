@@ -53,9 +53,9 @@ app.post('/users/register', async (req, res)=>{
             res.json({message: "User already registered", status: 409});
         }else{
             const uid = Math.floor(Math.random() * 10000000);
-            const sql = "INSERT INTO users (user_id, user_name, phone, password) VALUES(? , ? , ? , ? )";
+            const sql = "INSERT INTO users (user_id, user_name, phone, password, pregnant_date) VALUES(? , ? , ? , ?, ? )";
 
-            db.query(sql, [uid, name, phone, hashedPassword], (err, data)=>{
+            db.query(sql, [uid, name, phone, hashedPassword, '0000-00-00'], (err, data)=>{
                 if(err) return res.status(500).json({message: "Error!", sqlError: err.sqlMessage});
                 res.json({message: "Account created successfully"});
 
