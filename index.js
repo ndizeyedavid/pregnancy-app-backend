@@ -167,7 +167,7 @@ app.post('/users/messages/send', (req, res) => {
         if (err) return res.json({error: "Operation failed", message: err.sqlMessage});
 
         const fetch = `
-            SELECT messages.msg_id, messages.message_sent as message, messages.receiver_id, sender_id FROM users INNER JOIN messages ON users.user_id=messages.sender_id OR users.user_id=messages.receiver_id WHERE messages.sender_id = ? OR (messages.sender_id= 'admin' AND messages.receiver_id = ?);
+            SELECT messages.msg_id, messages.message_sent as message, messages.receiver_id, sender_id FROM users INNER JOIN messages ON users.user_id=messages.sender_id OR users.user_id=messages.receiver_id WHERE messages.sender_id = ? OR (messages.sender_id= 'admin' AND messages.receiver_id = ?) ORDER BY messages.id;
 
         `;
         db.query(fetch, [sender_id, sender_id], (err, result) => {
@@ -316,7 +316,7 @@ app.post('/admin/message/send', (req, res) => {
         // fetch new messages
 
         const fetch = `
-        SELECT messages.msg_id, messages.message_sent as message, messages.receiver_id, sender_id FROM users INNER JOIN messages ON users.user_id=messages.sender_id OR users.user_id=messages.receiver_id WHERE messages.sender_id= ? OR (messages.sender_id='admin' AND messages.receiver_id= ? );
+        SELECT messages.msg_id, messages.message_sent as message, messages.receiver_id, sender_id FROM users INNER JOIN messages ON users.user_id=messages.sender_id OR users.user_id=messages.receiver_id WHERE messages.sender_id= ? OR (messages.sender_id='admin' AND messages.receiver_id= ?) ORDER BY messages.id;
         `;
         db.query(fetch, [receiver_id, receiver_id], (err, result) => {
             res.json(result);
