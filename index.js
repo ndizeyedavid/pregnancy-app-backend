@@ -24,6 +24,7 @@ const db = mysql.createConnection({
     database: process.env.DATABASE,
     port: process.env.DB_PORT
 });
+
 let isConnect = false;
 
 db.on('error', (err)=>{
@@ -34,6 +35,18 @@ db.on('connect', (stream)=>{
     console.log('DB connected!');
 })
 
+app.listen(port, ()=>{
+    console.log("Server running. Port: "+ port);
+    async function reset_user_details(){
+        db.query('UPDATE user_details SET temperature=0, blood_pressure=0', (err, data)=>{
+            if (err) {
+                console.log('Failed to reset sensor details');
+                break;
+            }
+        })
+    }
+    setInterval(reset_user_details, 1200000)
+});
 
 app.get('/', (req, res)=>{
   res.json({Server: "Online", Port: port, Database_connected: isConnect});  
