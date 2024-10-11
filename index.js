@@ -13,10 +13,6 @@ const port = process.env.PORT;
 app.use(cors());
 app.use(bodyParser.json({ limit: '50mb' })); 
 
-app.listen(port, ()=>{
-    console.log("Server running. Port: "+ port);
-});
-
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USERNAME,
