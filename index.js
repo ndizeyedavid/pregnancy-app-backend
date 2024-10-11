@@ -41,7 +41,7 @@ app.listen(port, ()=>{
             }
         })
     }
-    const reseting = setInterval(reset_user_details, 1200000)
+    const reseting = setInterval(reset_user_details, 300000)
 });
 
 app.get('/', (req, res)=>{
