@@ -41,11 +41,11 @@ app.listen(port, ()=>{
         db.query('UPDATE user_details SET temperature=0, blood_pressure=0', (err, data)=>{
             if (err) {
                 console.log('Failed to reset sensor details');
-                break;
+                clearInterval(reseting);
             }
         })
     }
-    setInterval(reset_user_details, 1200000)
+    const reseting = setInterval(reset_user_details, 1200000)
 });
 
 app.get('/', (req, res)=>{
