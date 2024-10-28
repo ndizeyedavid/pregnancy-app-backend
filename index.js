@@ -347,3 +347,14 @@ app.post('/admin/update', (req, res) => {
         res.json({success: "Profile updated"});
     })
 })
+
+app.post('/admin/verify', (req, res) => {
+    const user_id = req.body.user_id;
+    const verify = req.body.verify;
+    
+    const sql = `UPDATE users SET verified = ? WHERE user_id = ?` 
+    db.query(sql, [verify, user_id], (err, result) => {
+        if (err) return res.json({error: "Operation failed", message: err.sqlMessage});
+        res.json({success: "User Account activated"});
+    })
+})
