@@ -202,6 +202,15 @@ app.get('/users/messages/view', (req, res) => {
     })
 })
 
+app.get('/users/verify/:id', (req, res)=>{
+    const uid = req.params.id;
+    const sql = "SELECT verified FROM users WHERE user_id=?"
+    db.query(sql, [uid], (err, result)=>{
+        if (err) return res.json({error: err.message});
+        res.json(result)
+    })
+})
+
 
 // /////////////////////////////////////////  ADMIN  ///////////////////////////////////////////////////////////////
 // Login
