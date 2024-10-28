@@ -268,7 +268,7 @@ app.get('/admin/recent', (req, res) => {
 
 // view all users
 app.get('/admin/users', (req, res) => {
-    const sql = "SELECT users.user_id, users.user_name, users.phone, users.pregnant_date, user_details.temperature, user_details.blood_pressure, user_details.real_blood_pressure FROM users INNER JOIN user_details ON users.user_id=user_details.user_id";
+    const sql = "SELECT users.user_id, users.user_name, users.phone, users.pregnant_date, user_details.temperature, user_details.blood_pressure, user_details.real_blood_pressure, users.verified FROM users INNER JOIN user_details ON users.user_id=user_details.user_id";
     db.query(sql, (err, result) => {
         if (err) return res.json({error: "Operation failed", message: err.sqlMessage});
         res.json(result);
